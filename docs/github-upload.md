@@ -1,6 +1,6 @@
 # 将这个仓库连接到 GitHub
 
-本地 `outputs/github-upload/` 已整理为独立 Git 仓库，默认分支为 `main`，包含一份首次本地提交。原项目的两份 Git 历史仍在原工作区，没有合并进这个仓库。目前未配置远端，也没有执行 push。
+本地 `outputs/github-upload/` 是独立 Git 仓库，默认分支为 `main`，`origin` 已连接 [aymlk/okki](https://github.com/aymlk/okki)。原项目的两份 Git 历史仍在原工作区，没有合并进这个仓库。为兼容远端初始 README，本次采用保留远端提交的合并方式，不强制覆盖历史。
 
 上传对象是这个干净仓库，不是原 `okki` 根目录。之前交付的 ZIP 是源码快照，不包含 `.git` 或提交历史；如果使用 ZIP，请先解压，再在独立目录初始化仓库，不要把 ZIP 本身作为唯一源码文件提交。
 
@@ -20,11 +20,11 @@ git remote -v
 npm run check
 ```
 
-下面只是供后续参考的操作示例，将 `OWNER` 与 `REPO` 替换为用户提供的真实账号及仓库名。执行前必须确认远端和上传范围。本次只完成本地仓库，不执行以下命令：
+当前 `origin` 已存在，不要重复执行 `git remote add`。后续完成变更、检查并提交后，使用普通 push；如提示远端更新，先获取并核对历史，不强制覆盖：
 
 ```powershell
-git remote add origin https://github.com/OWNER/REPO.git
-git push -u origin main
+git remote -v
+git push origin main
 ```
 
 如果 `origin` 已存在，先查看地址，不要盲目覆盖。远端有内容时先 fetch 或克隆并评估合并方式，不使用强制推送。

@@ -27,4 +27,4 @@
 - [GSAP Standard License](https://gsap.com/standard-license)
 - [GitHub：添加文件时不要提交敏感信息](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository)
 
-核查日期：2026-11-16。建议先完成私有仓库的资料审核，再决定是否公开；本次整理未执行任何公开发布。
+核查日期：2026-11-16。演示页面、头像与虚构客户内容按用户确认保留；该选择不免除第三方许可要求。后续加入真实资料或新素材时，仍需核对隐私与授权。

@@ -1,0 +1,14 @@
+{
+  "name": "okki-local-demos",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OKKI 风格的两个本地静态前端演示，不连接真实后台",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node scripts/start-projects.mjs",
+    "check": "node scripts/check-repository.mjs"
+  }
+}

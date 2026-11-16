@@ -1,0 +1,40 @@
+# Local tooling, agent metadata and browser/test work
+node_modules/
+.work/
+.manus/
+.manus-webdev/
+.ai-memory/
+.vscode/
+.idea/
+playwright-report/
+test-results/
+coverage/
+dist/
+
+# Secrets: examples with placeholder values may be committed
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Temporary files and local archives
+.manus-*.tmp
+*.tmp
+*.log
+*.bak
+*.zip
+*.7z
+*.tar
+*.gz
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Optional material not required to run these demos
+/inputs/
+/outputs/
+/archives/

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>智能销售 - OKKI CRM</title>
+  <meta name="description" content="OKKI CRM 智能销售：AI 接待询盘、自动背调、沟通记录与销售建议一屏掌握。" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./high-delivery-popup.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#" aria-label="OKKI CRM">
+      <span class="logo-okki">OKKI</span><span class="logo-crm">CRM</span><sup class="logo-ai">AI</sup>
+    </a>
+    <form class="top-search" id="topSearch" role="search">
+      <label class="select">
+        <select id="searchType" aria-label="搜索类型">
+          <option value="">请选择</option>
+          <option value="name">客户名称</option>
+          <option value="company">公司名称</option>
+          <option value="owner">归属人</option>
+        </select>
+      </label>
+      <input id="topKeyword" type="search" placeholder="请输入关键字" aria-label="关键字" />
+      <button class="icon-btn" type="submit" aria-label="搜索"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
+    </form>
+    <nav class="top-actions" aria-label="快捷入口">
+      <button class="top-link" type="button" aria-label="新建"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg></button>
+      <button class="top-link" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>TM</button>
+      <button class="top-link" type="button"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20h4"/></svg>消息<i class="dot"></i></button>
+      <button class="top-link" type="button"><svg viewBox="0 0 24 24"><path d="M5 13a7 7 0 0 1 14 0"/><rect x="3.5" y="12" width="4" height="6" rx="1.5"/><rect x="16.5" y="12" width="4" height="6" rx="1.5"/></svg>客服</button>
+      <button class="top-link" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.8 9.6a2.3 2.3 0 1 1 3.4 2c-.8.4-1.2 1-1.2 1.9M12 16.6v.2"/></svg>帮助</button>
+      <span class="divider"></span>
+      <span class="orb" aria-hidden="true"></span>
+      <button class="me" type="button" aria-label="个人中心"><span class="avatar av-6"></span></button>
+    </nav>
+  </header>
+
+  <aside class="sidebar" aria-label="主菜单">
+    <ul id="menu"></ul>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <span class="avatar av-5 page-avatar"></span>
+      <h1>智能销售</h1>
+      <button class="icon-btn gear" id="openSettings" type="button" aria-label="智能销售设置" title="设置"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3.5l1.4 2.2 2.6-.5.8 2.5 2.4 1.1-.6 2.6 1.6 2.1-2 1.7.1 2.6-2.6.4-1.3 2.3-2.4-1-2.4 1-1.3-2.3-2.6-.4.1-2.6-2-1.7 1.6-2.1-.6-2.6 2.4-1.1.8-2.5 2.6.5z"/></svg></button>
+    </div>
+
+    <section class="funnel" id="funnel" aria-label="接待漏斗"></section>
+
+    <section class="list-section">
+      <div class="list-head">
+        <h2>接待列表</h2>
+        <div class="list-tools">
+          <label class="switch-label">仅展示人工未接手
+            <span class="help" title="开启后隐藏已由人工接手的客户">?</span>
+            <input type="checkbox" id="onlyPending" class="switch" />
+          </label>
+          <label class="sort">
+            <select id="sortBy" aria-label="排序方式">
+              <option value="recent">最近沟通时间</option>
+              <option value="amount">金额从高到低</option>
+            </select>
+          </label>
+          <span class="v-divider"></span>
+          <button class="icon-btn" id="filterBtn" type="button" aria-label="筛选" title="筛选"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7.5V19l-4-2v-4.5z"/></svg></button>
+          <div class="list-search" id="listSearchWrap">
+            <input id="listKeyword" type="search" placeholder="搜索客户 / 公司" aria-label="搜索接待列表" />
+            <button class="icon-btn" id="listSearchBtn" type="button" aria-label="搜索接待列表"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="filter-chips" id="filterChips" hidden></div>
+      <div class="cards" id="cards"></div>
+    </section>
+  </main>
+
+  <div class="mask" id="mask" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="接待详情" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>接待详情</h3>
+      <button class="link-btn" type="button" id="customerDetail"><svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 19a6.5 6.5 0 0 1 13 0M17 11h4M19 9v4"/></svg>客户详情</button>
+      <button class="icon-btn close" type="button" id="closeDrawer" aria-label="关闭"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </aside>
+
+  <div class="modal-wrap" id="settings" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal-head">
+        <h3 id="settingsTitle">智能销售设置</h3>
+        <button class="icon-btn close" type="button" data-close-settings aria-label="关闭"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="set-row"><div><b>AI 自动接待</b><p>新询盘接入后由智能销售自动回复客户</p></div><input type="checkbox" class="switch" checked /></div>
+        <div class="set-row"><div><b>自动背调</b><p>接待时自动查询客户公司、官网与贸易记录</p></div><input type="checkbox" class="switch" checked /></div>
+        <div class="set-row"><div><b>转人工规则</b><p>满足任一条件时提醒归属人接手</p></div></div>
+        <div class="rule-list">
+          <label><input type="checkbox" checked /> 预计金额 ≥ <input class="mini" value="80,000" aria-label="金额阈值" /> USD</label>
+          <label><input type="checkbox" checked /> 客户关键信息不完整（信息补全）</label>
+          <label><input type="checkbox" checked /> AI 无法回答的价格或条款问题</label>
+        </div>
+        <div class="set-row"><div><b>回复语气</b><p>智能销售回复客户时使用的语气</p></div>
+          <div class="seg" role="radiogroup" aria-label="回复语气">
+            <button type="button" class="on">专业</button><button type="button">亲切</button><button type="button">简洁</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn ghost" type="button" data-close-settings>取消</button>
+        <button class="btn primary" type="button" id="saveSettings">保存配置</button>
+      </div>
+    </div>
+  </div>
+
+  <dialog class="intercept-alert" id="interceptAlert" role="alertdialog" aria-modal="true" aria-labelledby="interceptAlertTitle" aria-describedby="interceptAlertSummary">
+    <header class="intercept-alert-head">
+      <span class="intercept-alert-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 21 19H3z"/><path d="M12 9v4M12 16v.1"/></svg></span>
+      <div><span class="intercept-alert-eyebrow">AI 智能销售 · 询盘防护</span><h2 id="interceptAlertTitle">非目标客户询盘已拦截</h2></div>
+      <button class="icon-btn close" id="closeInterceptAlert" type="button" aria-label="关闭拦截提醒" autofocus><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="intercept-alert-card">
+      <div class="intercept-alert-top">
+        <div class="who"><span class="avatar" id="interceptAlertAvatar"></span><div class="name" id="interceptAlertName"></div></div>
+        <div class="intercept-alert-channel"><span class="ch tm"><svg viewBox="0 0 24 24"><rect x="6.5" y="8" width="11" height="9" rx="3.5"/><path d="M12 8V6M10 12.3v.1M14 12.3v.1"/></svg></span><span class="since">1h 前 · 收到 TM 询盘</span></div>
+        <div class="intercept-alert-status"><strong>已拦截</strong><span class="owner"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>归属人: <span id="interceptAlertOwner"></span></span></div>
+      </div>
+      <div class="ai-line"><span class="k"><span class="spark" aria-hidden="true">✦</span>概要</span><span class="v" id="interceptAlertSummary"></span></div>
+    </div>
+    <footer class="intercept-alert-foot">
+      <p>如判断有误，可恢复接待，交由智能销售继续跟进。<span>本地演示提醒，不调用真实 AI 或后台。</span></p>
+      <div class="intercept-alert-actions"><button class="btn ghost" id="dismissInterceptAlert" type="button">我知道了</button><button class="btn primary" id="restoreInterceptAlert" type="button">恢复接待</button></div>
+    </footer>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./vendor/gsap.min.js"></script>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+  <script src="./idle-alert.js"></script>
+  <script src="./high-delivery-popup.js"></script>
+</body>
+</html>

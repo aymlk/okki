@@ -1,0 +1,55 @@
+/* 与既有红色“已拦截”区分：高交付意向采用绿色实体印章。 */
+.intent-verdict {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid #d4eade;
+  border-radius: 12px;
+  background: linear-gradient(115deg, #f4fbf7, #fafffc);
+}
+.intent-copy { min-width: 0; }
+.intent-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.intent-eyebrow { color: #23845b; font-size: 12px; font-weight: 600; letter-spacing: .4px; }
+.intent-replay { display: grid; place-items: center; width: 27px; height: 27px; padding: 0; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #43876a; }
+.intent-replay:hover { background: #e8f5ed; border-color: #c2e1cf; }
+.intent-replay svg { width: 15px; height: 15px; }
+.intent-reason { margin: 6px 0 10px; color: #4c6257; font-size: 12px; line-height: 1.7; }
+.intent-signals { display: flex; flex-wrap: wrap; gap: 6px; }
+.intent-signal { display: inline-flex; align-items: center; gap: 4px; padding: 4px 7px; border: 1px solid #d0e9db; border-radius: 5px; background: #fff; color: #29704c; font-size: 11px; }
+.intent-signal svg { width: 13px; height: 13px; stroke-width: 2.4; }
+.intent-status { margin: 10px 0 0; color: #7d9688; font-size: 10px; line-height: 1.6; }
+.intent-stage { position: relative; display: grid; place-items: center; width: 160px; min-height: 110px; overflow: hidden; isolation: isolate; }
+.intent-stamp {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 140px;
+  min-height: 77px;
+  padding: 8px 5px;
+  border: 3px solid #27885c;
+  border-radius: 5px;
+  color: #27885c;
+  background: rgba(247, 253, 249, .9);
+  transform: rotate(-9deg);
+  box-shadow: 0 2px 5px rgba(25, 107, 68, .08);
+  transform-origin: center;
+}
+.intent-stamp::after { content: ""; position: absolute; inset: 3px; border: 1px solid currentColor; border-radius: 2px; pointer-events: none; }
+.intent-stamp strong { white-space: nowrap; font-size: 18px; font-weight: 800; letter-spacing: 1px; line-height: 1.35; }
+.intent-stamp-top { font-size: 9px; letter-spacing: 2px; }
+.intent-stamp-bottom { font-size: 9px; letter-spacing: 4px; }
+.intent-impact { position: absolute; inset: 16px 9px; border: 2px solid rgba(39, 136, 92, .32); border-radius: 50%; opacity: 0; pointer-events: none; }
+@media (max-width: 480px) {
+  .intent-verdict { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 14px; }
+  .intent-stage { justify-self: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intent-verdict, .intent-stamp, .intent-impact, .intent-signal { animation: none !important; transition: none !important; }
+}

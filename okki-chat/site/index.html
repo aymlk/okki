@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OKKI CRM · 沟通</title>
+  <meta name="description" content="OKKI CRM 风格的跨境销售沟通工作台，智能销售中英文自动接待。">
+  <link rel="stylesheet" href="./styles.css?v=strict-quad-20261106">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="OKKI CRM 首页"><span class="okki">OKKI</span><span class="crm">CRM</span><sup>AI</sup></a>
+      <form class="global-search" role="search">
+        <button type="button" class="search-type">请选择 <span class="chev"></span></button>
+        <input aria-label="全局搜索" placeholder="请输入关键字">
+        <button type="submit" class="search-btn" aria-label="搜索"><i class="ic ic-search"></i></button>
+      </form>
+      <nav class="top-actions" aria-label="快捷入口">
+        <button aria-label="最近"><i class="ic ic-target"></i></button>
+        <button data-view="chat"><i class="ic ic-clock"></i>TM</button>
+        <button data-view="wa"><i class="ic ic-chat"></i>WhatsApp</button>
+        <button><i class="ic ic-bell"></i>消息</button>
+        <button><i class="ic ic-headset"></i>客服</button>
+        <button><i class="ic ic-help"></i>帮助</button>
+        <button class="orb" aria-label="AI 助手"></button>
+        <button class="me" aria-label="个人中心"><span class="face face-me"></span></button>
+      </nav>
+    </header>
+
+    <aside class="rail" aria-label="主导航" id="rail"></aside>
+
+    <main class="workspace">
+      <section class="im">
+        <div class="accounts">
+          <span class="face face-account"></span>
+          <button class="toggle on" aria-pressed="true" aria-label="自动接待"><span></span></button>
+          <small class="toggle-label">自动接待</small>
+          <button class="acc-item active"><i class="ic ic-msg"></i><small>消息</small></button>
+          <button class="acc-item"><i class="ic ic-user"></i><small>通讯录</small></button>
+          <button class="acc-item sub"><i class="ic ic-users"></i><small>sub<br>account</small></button>
+          <button class="feedback" aria-label="反馈"><i class="ic ic-alert"></i></button>
+          <button class="acc-item setting"><i class="ic ic-gear"></i><small>设置</small></button>
+        </div>
+
+        <div class="sessions">
+          <div class="session-head">
+            <button aria-label="新建会话"><i class="ic ic-plus-msg"></i></button>
+            <label class="session-search"><i class="ic ic-search"></i><input placeholder="搜索" aria-label="搜索会话"></label>
+            <button aria-label="会话设置"><i class="ic ic-panel"></i></button>
+          </div>
+          <div class="session-tabs" role="tablist">
+            <button class="active" data-filter="all">全部</button>
+            <button data-filter="important">重要</button>
+            <button data-filter="unread" id="unreadFilter">未读<em id="tmUnreadTotal">0</em></button>
+            <button class="dot" data-filter="pending">待回复</button>
+            <span class="arrows">‹ ›</span>
+            <i class="ic ic-filter"></i>
+          </div>
+          <ul class="session-list" id="sessionList"></ul>
+        </div>
+
+        <div class="chat">
+          <div class="chat-head">
+            <div>
+              <h1>hygmailcom</h1>
+              <p>本地时间: 4:52 PM</p>
+            </div>
+            <div class="chat-head-tools">
+              <button class="collect-btn" id="openCollect"><i class="ic ic-gear"></i>需求收集项</button>
+              <button class="dashboard-reopen" id="reopenDashboard" hidden>交付卡片</button>
+              <button aria-label="会话记录"><i class="ic ic-plus-msg"></i></button>
+              <button aria-label="添加客户"><i class="ic ic-user-add"></i></button>
+              <button aria-label="搜索记录"><i class="ic ic-list-search"></i></button>
+              <button aria-label="接待详情" data-open-detail><i class="ic ic-user"></i></button>
+            </div>
+          </div>
+          <div class="messages" id="messages" aria-live="polite">
+            <div class="day">7月22日 10:14</div>
+          </div>
+          <button class="side-handle" aria-label="展开接待详情" data-open-detail>◂</button>
+          <div class="ai-tools" aria-label="AI 工具">
+            <button class="muted"><i class="ic ic-lines"></i>AI润色</button>
+            <button data-ai="回复建议"><i class="ic ic-reply"></i>回复建议</button>
+            <button data-ai="消息总结"><i class="ic ic-spark"></i>消息总结</button>
+            <button data-ai="商机汇总"><i class="ic ic-doc"></i>商机汇总</button>
+            <button data-ai="买家特征"><i class="ic ic-badge"></i>买家特征</button>
+          </div>
+          <form class="composer" id="composer">
+            <div class="composer-tools" aria-label="输入工具">
+              <i class="ic ic-smile"></i><i class="ic ic-image"></i><i class="ic ic-folder"></i><i class="ic ic-copy"></i>
+              <i class="ic ic-box"></i><i class="ic ic-boxes"></i><i class="ic ic-calendar"></i><i class="ic ic-translate"></i>
+              <i class="ic ic-card"></i><i class="ic ic-note"></i>
+            </div>
+            <textarea id="input" aria-label="输入消息" placeholder="输入消息"></textarea>
+            <span class="expand" aria-hidden="true">⤢</span>
+            <span class="hint">"Ctrl+enter"快捷换行</span>
+            <button class="send" id="send" disabled>发送</button>
+          </form>
+          <div class="toast" id="toast" role="status"></div>
+        </div>
+
+
+      </section>
+    </main>
+
+    <main class="mailspace" id="mailView" hidden aria-label="邮件">
+      <aside class="mail-folders">
+        <button class="compose"><span>+</span>写邮件</button>
+        <nav>
+          <button class="active"><i class="ic ic-mail"></i>收件箱<em>12</em></button>
+          <button><i class="ic ic-alert"></i>待处理<em>3</em></button>
+          <button><i class="ic ic-star"></i>星标邮件</button>
+          <button><i class="ic ic-reply"></i>已发送</button>
+          <button><i class="ic ic-note"></i>草稿箱</button>
+          <button><i class="ic ic-clock"></i>定时发送</button>
+          <button><i class="ic ic-box"></i>垃圾邮件</button>
+        </nav>
+        <div class="mail-account"><span class="face face-me"></span><div><b>OKKI 医疗销售</b><small>sales@okkimed.com</small></div></div>
+      </aside>
+      <section class="mail-list">
+        <div class="mail-list-head">
+          <label class="session-search"><i class="ic ic-search"></i><input placeholder="搜索邮件" aria-label="搜索邮件"></label>
+        </div>
+        <div class="mail-filter"><button class="active">全部</button><button>未读</button><button>客户邮件</button><button>未回复</button></div>
+        <ul id="mailList"></ul>
+      </section>
+      <section class="mail-read">
+        <header class="mail-read-head">
+          <div>
+            <h1 id="mailSubject">Inquiry: Dental Equipment</h1>
+            <p><span class="mail-chip">询盘</span><span class="mail-chip warn" id="mailState">客户 7 天未回复</span><span class="mail-chip" id="mailCount">共 6 封</span></p>
+          </div>
+          <div class="mail-actions">
+            <button><i class="ic ic-reply"></i>回复</button>
+            <button><i class="ic ic-spark"></i>AI 写信</button>
+            <button data-view="chat"><i class="ic ic-chat"></i>TM 沟通</button>
+          </div>
+        </header>
+        <div class="mail-thread" id="mailThread" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <main class="waspace" id="waView" hidden aria-label="WhatsApp 沟通">
+      <section class="wa-list">
+        <div class="wa-list-head"><span class="wa-logo" aria-hidden="true"></span><b>WhatsApp</b><small>OKKI 医疗销售</small></div>
+        <div class="wa-unread-total">会话消息<span>未读 <b id="waUnreadTotal">0</b></span></div>
+        <ul id="waList"></ul>
+      </section>
+      <section class="wa-chat">
+        <header class="wa-head">
+          <img class="wa-avatar" id="waAvatar" src="" alt="" width="40" height="40">
+          <div class="wa-who"><b id="waName"></b><small id="waMeta"></small></div>
+          <span class="conversation-intent-badge" id="waIntentBadge" hidden><span class="intent-medal" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m7.5 12 3 3 6-6"/></svg></span><span class="intent-copy"><span class="intent-label">高交付意向用户</span><small class="intent-caption">需求已确认 · 优先跟进</small></span></span>
+          <span class="wa-linked" id="waLinked"></span>
+          <button class="wa-back" data-view="mail"><i class="ic ic-mail"></i>邮件记录</button>
+        </header>
+        <div class="wa-messages" id="waMessages" aria-live="polite"></div>
+        <form class="wa-composer" id="waComposer"><i class="ic ic-smile"></i><i class="ic ic-image"></i><textarea id="waInput" aria-label="输入 WhatsApp 消息" placeholder="输入消息" rows="1"></textarea><button type="submit" id="waSend" disabled>发送</button></form>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="requirements-dashboard delivery-card" id="requirementsDashboard" aria-labelledby="dashboardTitle">
+    <div class="dashboard-shell" id="dashboardShell">
+      <header class="dashboard-header">
+        <div><span class="dashboard-eyebrow">OKKI 智能销售 · 需求识别完成</span><h2 id="dashboardTitle">交付卡片</h2></div>
+        <button type="button" class="dashboard-close" id="closeDashboard" aria-label="关闭需求 Dashboard">×</button>
+      </header>
+      <section class="dashboard-buyer">
+        <img id="dashboardAvatar" src="./assets/buyer.jpg" alt="" width="44" height="44">
+        <div><b id="dashboardBuyer">hygmailcom</b><small id="dashboardCompany">HY Dental Group · 法国</small></div>
+        <span class="dashboard-complete-state" id="dashboardState">4 项需求已收集完整</span>
+      </section>
+      <section class="summary dashboard-summary" aria-label="完整需求摘要">
+        <div class="summary-progress">
+          <span id="progressText">已收集 <b id="progressNum" data-v="0">0</b>/<span id="progressTotal">4</span><small>需求信息已确认</small></span>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+        <ul class="summary-list" id="summaryList"></ul>
+        <section class="delivery-next-step"><span>建议跟进</span><h3>优先发送正式报价</h3><p>附 CE 证书与连锁诊所批量优惠，主动约视频演示。</p></section>
+        <div class="summary-rule" id="summaryRule"></div>
+      </section>
+      <footer class="dashboard-footer delivery-footer"><span>基于当前买家的真实回复整理</span><div class="delivery-actions"><button type="button" id="dashboardDone">返回会话</button><div class="handoff" id="handoff" hidden><button type="button" class="handoff-open" id="dashboardDetail" data-dashboard-detail>查看接待详情 <span aria-hidden="true">→</span></button></div></div></footer>
+    </div>
+  </dialog>
+
+  <div class="modal-mask" id="collectModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="collectTitle">
+      <button class="modal-close" id="closeCollect" aria-label="关闭">×</button>
+      <section class="cfg">
+        <div class="cfg-head">
+          <div>
+            <h3 id="collectTitle">信息收集项</h3>
+            <p>智能销售会在接待时自然询问以下信息，转人工时一并整理好转交，方便真人接手后跟进</p>
+          </div>
+          <button class="add-item" id="addItem"><span>+</span>新增收集项</button>
+        </div>
+        <div class="cfg-card">
+          <div class="chips" id="presetChips"></div>
+          <div class="divider"><span>自定义收集项</span></div>
+          <div class="chips" id="customChips"></div>
+          <form class="item-form" id="itemForm" hidden>
+            <input id="itemName" maxlength="12" placeholder="输入收集项名称，如：联系人职位" aria-label="收集项名称">
+            <button type="submit" class="primary">确定</button>
+            <button type="button" id="cancelItem">取消</button>
+          </form>
+          <p class="cfg-error" id="cfgError" role="alert"></p>
+        </div>
+      </section>
+      <section class="cfg">
+        <h3>转人工情形</h3>
+        <p>智能销售会在能力边界内尽可能深入接待，当遇到超出能力范围的问题时转交人工</p>
+        <div class="cfg-card rule">
+          <div class="rule-top"><b>预估金额 ≥ 阈值</b><button type="button" class="toggle on" id="ruleToggle" aria-pressed="true" aria-label="启用金额阈值"><span></span></button></div>
+          <label class="rule-line">识别客户主动表达的金额 ≥ USD <input id="threshold" type="number" min="0" value="1000"> <i class="qmark" title="客户在对话中主动提到的金额达到阈值时转交人工">?</i>，交付人工</label>
+        </div>
+        <div class="cfg-card">
+          <b class="other-title">其他转人工情形</b>
+          <div class="others"><span><i>i</i>无法回复</span><span><i>i</i>客户负向情绪</span><span><i>i</i>客户超15天无回复</span><span><i>i</i>人工主动介入回复</span></div>
+        </div>
+      </section>
+      <div class="modal-foot">
+        <button type="button" id="cancelCollect">取消</button>
+        <button type="button" class="primary" id="saveCollect">保存并重新开始</button>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-mask" id="detailMask" hidden></div>
+  <aside class="drawer" id="detail" aria-label="接待详情" aria-hidden="true">
+    <header class="drawer-head">
+      <h2>接待详情</h2>
+      <div><button class="cust-link"><i class="ic ic-users"></i>客户详情</button><button class="drawer-close" id="closeDetail" aria-label="关闭">×</button></div>
+    </header>
+    <section class="buyer-card">
+      <img src="./assets/buyer.jpg" alt="" width="64" height="64">
+      <div class="buyer-info">
+        <p><b>hygmailcom</b><span>· Buyer</span></p>
+        <p class="sub">HY Dental Group <span>·</span> <span class="flag flag-fr"></span> 法国 <i class="sep"></i><i class="ic ic-clock"></i><span id="replyAgo">刚刚回复</span></p>
+      </div>
+      <div class="handoff-badge">
+        <p><span class="rule-tag" id="ruleTag">需求收集完整</span><b>转人工</b></p>
+        <p class="owner">归属人：Lily</p>
+      </div>
+    </section>
+      <section class="delivery-hero detail-intent-row" id="detailIntentRow" hidden aria-labelledby="deliveryIntentTitle">
+        <span class="delivery-eyebrow"><i aria-hidden="true"></i>AI 已完成需求识别</span>
+        <div class="conversation-intent-badge detail-intent-badge" id="detailIntentBadge">
+          <span class="intent-medal" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m7.5 12 3 3 6-6"/></svg></span>
+          <span class="intent-copy"><strong class="intent-label" id="deliveryIntentTitle">高交付意向用户</strong><small class="intent-caption">需求已确认，可以交付销售跟进</small></span>
+        </div>
+      </section>
+    <div class="drawer-body">
+      <section class="req-card">
+        <dl class="req-grid" id="reqGrid"></dl>
+        <div class="req-ai">
+          <p><span class="spark">✦</span><span class="k">概要</span><span id="aiSummary"></span></p>
+          <p><span class="spark">✦</span><span class="k">建议</span><span id="aiAdvice"></span><button class="quote-btn" id="sendQuote"><i class="ic ic-chat"></i>发报价</button></p>
+        </div>
+      </section>
+    </div>
+  </aside>
+  <script src="./vendor/gsap.min.js"></script>
+  <script src="./vendor/Flip.min.js"></script>
+  <script src="./vendor/SplitText.min.js"></script>
+  <script src="./vendor/ScrambleTextPlugin.min.js"></script>
+  <script src="./vendor/CustomEase.min.js"></script>
+  <script type="module" src="./app.js?v=manual-growth-20261106-1506"></script>
+</body>
+</html>
